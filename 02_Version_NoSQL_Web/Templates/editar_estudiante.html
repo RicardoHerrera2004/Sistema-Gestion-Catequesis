@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% set alumno = estudiante.Estudiantes[0] if estudiante.Estudiantes else estudiante %}
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">✏️ Editar Estudiante</h4>
+            </div>
+            <div class="card-body">
+                <form action="/actualizar_estudiante/{{ estudiante._id }}" method="POST">
+                    
+                    <h5 class="text-muted mb-3">Datos Personales</h5>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label class="form-label">Nombres</label>
+                            <input type="text" name="nombres" class="form-control" value="{{ alumno.nombres }}" required>
+                        </div>
+                        <div class="col">
+                            <label class="form-label">Apellidos</label>
+                            <input type="text" name="apellidos" class="form-control" value="{{ alumno.apellidos }}" required>
+                        </div>
+                    </div>
+
+                    <h5 class="text-muted mb-3 mt-4">Contacto</h5>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label class="form-label">Teléfono</label>
+                            <input type="text" name="telefono" class="form-control" 
+                                   value="{{ alumno.get('contacto', {}).get('telefono', '') }}">
+                        </div>
+                        <div class="col">
+                            <label class="form-label">Ciudad</label>
+                            <input type="text" name="ciudad" class="form-control" 
+                                   value="{{ alumno.get('contacto', {}).get('direccion', {}).get('ciudad', '') }}">
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                        <a href="/estudiantes" class="btn btn-secondary me-md-2">Cancelar</a>
+                        <button type="submit" class="btn btn-primary">💾 Guardar Cambios</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

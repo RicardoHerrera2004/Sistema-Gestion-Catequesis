@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card card-custom">
+            <div class="card-header card-header-purple py-3">
+                <h4 class="mb-0">🎓 Inscribir Nuevo Estudiante</h4>
+            </div>
+            <div class="card-body p-4">
+                <form action="/guardar_estudiante" method="POST">
+                    
+                    <h5 class="fw-bold text-dark mb-3">Datos Personales</h5>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label class="form-label text-muted small">Nombres *</label>
+                            <input type="text" name="nombres" class="form-control" required>
+                        </div>
+                        <div class="col">
+                            <label class="form-label text-muted small">Apellidos *</label>
+                            <input type="text" name="apellidos" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label text-muted small">Número de Cédula *</label>
+                        <input type="text" name="nroDoc" class="form-control" required>
+                    </div>
+
+                    <h5 class="fw-bold text-dark mb-3 mt-4">Contacto de Emergencia</h5>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label class="form-label text-muted small">Teléfono</label>
+                            <input type="text" name="telefono" class="form-control">
+                        </div>
+                        <div class="col">
+                            <label class="form-label text-muted small">Ciudad</label>
+                            <input type="text" name="ciudad" class="form-control" value="Quito">
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                        <a href="/estudiantes" class="btn btn-outline-secondary me-md-2">Cancelar</a>
+                        <button type="submit" class="btn btn-purple px-4">💾 Guardar Estudiante</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

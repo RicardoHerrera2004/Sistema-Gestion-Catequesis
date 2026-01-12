@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2 class="fw-bold mb-4" style="color: var(--color-dark);">👥 Equipo de Catequistas</h2>
+
+<div class="card card-custom p-3">
+    <table class="table table-hover align-middle">
+        <thead class="table-light">
+            <tr>
+                <th class="ps-3">Nombre</th>
+                <th>Email</th>
+                <th>Teléfono</th>
+                <th>Rol</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in lista %}
+            
+            {% set c = item.Catequistas[0] if item.Catequistas else item %}
+
+            <tr>
+                <td class="ps-3 fw-medium">{{ c.nombres }} {{ c.apellidos }}</td>
+                <td class="text-muted">{{ c.email }}</td>
+                <td>{{ c.telefono }}</td>
+                <td>
+                    <span class="badge bg-primary bg-opacity-75">{{ c.tipoPerfil }}</span>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

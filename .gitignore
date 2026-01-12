@@ -1,0 +1,23 @@
+# --- BASURA DE PYTHON ---
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# --- ENTORNOS VIRTUALES (¡OBLIGATORIO IGNORAR!) ---
+.venv/
+venv/
+env/
+ENV/
+
+# --- ARCHIVOS DE CONFIGURACIÓN Y CLAVES (SEGURIDAD) ---
+configuracion.json
+.env
+instance/
+
+# --- BASURA DEL SISTEMA OPERATIVO ---
+.DS_Store
+Thumbs.db
+
+# --- CONFIGURACIONES DE VS CODE ---
+.vscode/

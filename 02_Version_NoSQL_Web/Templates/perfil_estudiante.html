@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mb-5">
+    
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="text-primary">{{ estudiante.apellidos }}, {{ estudiante.nombres }}</h2>
+            <span class="badge bg-secondary">{{ estudiante.tipoPerfil }}</span>
+            <span class="text-muted ms-2">C.I: {{ estudiante.nroDoc }}</span>
+        </div>
+        <div>
+            <a href="/estudiantes" class="btn btn-outline-secondary">🔙 Volver</a>
+            <a href="/editar_estudiante/{{ id_original }}" class="btn btn-primary">✏️ Editar Datos</a>
+        </div>
+    </div>
+
+    <div class="row">
+        
+        <div class="col-md-4">
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-dark text-white">👤 Información Personal</div>
+                <div class="card-body">
+                    <p><strong>🎂 Nacimiento:</strong> {{ estudiante.fechaNacimiento }}</p>
+                    <hr>
+                    <h6 class="text-muted">Contacto</h6>
+                    <p>
+                        📞 {{ estudiante.contacto.telefono | default('Sin teléfono') }} <br>
+                        📧 {{ estudiante.contacto.email | default('Sin email') }} <br>
+                        🏠 {{ estudiante.contacto.direccion.ciudad | default('') }} 
+                           {{ estudiante.contacto.direccion.calle | default('') }}
+                    </p>
+                </div>
+            </div>
+
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-info text-white">👨‍👩‍👧 Representantes</div>
+                <ul class="list-group list-group-flush">
+                    {% for rep in estudiante.representantes %}
+                    <li class="list-group-item">
+                        <strong>{{ rep.nombres }}</strong> <br>
+                        <small class="text-muted">{{ rep.parentesco }}</small>
+                    </li>
+                    {% else %}
+                    <li class="list-group-item text-muted">No hay representantes registrados.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            
+            <div class="card shadow-sm mb-4 border-success">
+                <div class="card-header bg-success text-white">📚 Historial de Inscripciones</div>
+                <div class="card-body">
+                    <table class="table table-sm table-hover">
+                        <thead>
+                            <tr>
+                                <th>Año / Fecha</th>
+                                <th>Grupo</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for ins in estudiante.historialInscripciones %}
+                            <tr>
+                                <td>{{ ins.fechaInscripcion }}</td>
+                                <td>Grupo ID: {{ ins.grupo_id }}</td>
+                                <td>
+                                    {% if ins.estado == 'Activo' %}
+                                        <span class="badge bg-success">Activo</span>
+                                    {% else %}
+                                        <span class="badge bg-secondary">{{ ins.estado }}</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% else %}
+                            <tr><td colspan="3" class="text-center">Sin inscripciones previas.</td></tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card shadow-sm">
+                <div class="card-header bg-warning text-dark">✝️ Sacramentos Recibidos</div>
+                <div class="card-body">
+                    <div class="row">
+                        {% for sac in estudiante.sacramentosRecibidos %}
+                        <div class="col-md-6 mb-2">
+                            <div class="border p-2 rounded bg-light">
+                                <strong>{{ sac.tipo }}</strong> <br>
+                                <small>📅 {{ sac.fecha }}</small> <br>
+                                {% if sac.padrinos %}
+                                    <small class="text-muted">Padrino: {{ sac.padrinos[0].nombres }}</small>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% else %}
+                        <p class="text-muted">No se han registrado sacramentos.</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
